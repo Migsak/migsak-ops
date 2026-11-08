@@ -19,29 +19,37 @@ export default async function TeamPage() {
   const tz = appTimezone();
   const teamId = viewer.profile.team_id;
 
+  // Admins without a team see the whole workspace here; everyone else sees their own team.
+  const adminOverview = viewer.isAdmin && !teamId;
+
   const [teams, everyone, teamTasks] = await Promise.all([
     listTeams(),
     listProfiles({ activeOnly: true }),
-    teamId ? listTasks({ teamId, includeDone: false }) : Promise.resolve([])
+    adminOverview ? listTasks({ includeDone: false }) : teamId ? listTasks({ teamId, includeDone: false }) : Promise.resolve([])
   ]);
   const team = teams.find((t) => t.id === teamId) ?? null;
-  // Admins can see everyone; on this page show only the viewer's own team.
-  const members = team ? everyone.filter((p) => p.team_id === team.id) : everyone.filter((p) => p.id === viewer.userId);
-  // Admins run the workspace; show them only if they are the viewer and have no team.
-  const trackedMembers = members.filter((p) => isTracked(p) || (!team && p.id === viewer.userId));
-  const snapshot = await loadTeamSnapshot(trackedMembers, tz, { tasks: teamTasks });
+  const members = adminOverview
+    ? everyone.filter(isTracked)
+    : team
+      ? everyone.filter((p) => p.team_id === team.id && isTracked(p))
+      : everyone.filter((p) => p.id === viewer.userId);
+  const snapshot = await loadTeamSnapshot(members, tz, { tasks: teamTasks });
   const peopleMap = new Map(members.map((p) => [p.id, p]));
   const todaysUpdates = snapshot.updates.filter((u) => u.work_date === snapshot.today);
 
   return (
     <>
       <PageHeader
-        title={team ? team.name : 'Team'}
+        title={adminOverview ? 'All teams' : team ? team.name : 'Team'}
         description={team?.description ?? 'Who is working now, what the team shipped today and what is in progress.'}
         actions={<LiveRefresh tables={['attendance_sessions', 'daily_updates', 'tasks', 'commits']} />}
       />
 
-      {!team ? (
+      {adminOverview ? (
+        <div className="mb-6">
+          <Notice>You are seeing everyone as admin. Interns and employees see only their own team here.</Notice>
+        </div>
+      ) : !team ? (
         <div className="mb-6">
           <Notice tone="warn">You are not in a team yet. Ask your admin to add you to one to see your teammates here.</Notice>
         </div>

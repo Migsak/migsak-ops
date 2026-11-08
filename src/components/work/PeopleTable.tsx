@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Avatar, Badge, ProgressBar, Table, Td, Th } from '@/components/ui';
+import { Avatar, Badge, EmptyState, ProgressBar, Table, Td, Th } from '@/components/ui';
 import { formatMinutes, formatTime } from '@/lib/time';
 
 export interface PersonRow {
@@ -18,6 +18,9 @@ export interface PersonRow {
 
 /** Live status table used on the team page and the admin dashboard. */
 export function PeopleTable({ rows, tz, linkBase }: { rows: PersonRow[]; tz: string; linkBase?: string }) {
+  if (rows.length === 0) {
+    return <EmptyState title="No one to show yet" description="Interns and employees appear here once they are added under People." />;
+  }
   return (
     <Table>
       <thead>
