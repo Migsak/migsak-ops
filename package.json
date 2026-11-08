@@ -1,0 +1,43 @@
+{
+  "name": "migsak-ops",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Migsak Ops: people management, attendance, daily updates, tasks and engineering activity for the Migsak team.",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "create-admin": "node --env-file=.env.local --experimental-strip-types --no-warnings scripts/create-admin.ts"
+  },
+  "dependencies": {
+    "@supabase/ssr": "0.12.7",
+    "@supabase/supabase-js": "2.119.0",
+    "clsx": "2.1.1",
+    "lucide-react": "1.70.0",
+    "next": "15.5.29",
+    "react": "19.1.10",
+    "react-dom": "19.1.10",
+    "recharts": "3.10.1",
+    "server-only": "0.0.1",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.1",
+    "@types/react": "19.1.17",
+    "@types/react-dom": "19.1.11",
+    "autoprefixer": "10.4.21",
+    "eslint": "9.39.1",
+    "eslint-config-next": "15.5.29",
+    "postcss": "8.5.6",
+    "tailwindcss": "3.4.19",
+    "typescript": "5.9.3",
+    "vitest": "5.1.0"
+  }
+}
