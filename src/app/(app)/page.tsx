@@ -53,7 +53,7 @@ export default async function HomePage() {
     <>
       <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-xl font-semibold tracking-tight text-ink">
+          <h1 className="text-xl font-semibold tracking-heading text-ink">
             {greeting(hour)}, {profile.full_name.split(' ')[0]}
           </h1>
           <p className="mt-1 text-sm text-ink-muted">{formatDateKey(today, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p>

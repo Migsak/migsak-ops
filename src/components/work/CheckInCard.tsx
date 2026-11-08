@@ -54,7 +54,7 @@ export function CheckInCard({
   const state = openSince ? outState : inState;
 
   return (
-    <section className="rounded-lg border border-line bg-white shadow-card">
+    <section className="rounded-xl border border-line bg-white">
       <div className="flex items-center justify-between border-b border-line px-5 py-4">
         <div>
           <h2 className="text-sm font-semibold text-ink">Attendance</h2>
@@ -76,7 +76,7 @@ export function CheckInCard({
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="text-xs font-medium text-ink-muted">Current session</p>
-            <p className="tabular mt-1 font-mono text-3xl font-semibold tracking-tight text-ink" aria-live="off">
+            <p className="tabular mt-1 font-mono text-3xl font-semibold tracking-heading text-ink" aria-live="off">
               {openSince ? elapsedClock(openMs) : '00:00:00'}
             </p>
           </div>

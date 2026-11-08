@@ -8,10 +8,10 @@ type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
 type ButtonSize = 'sm' | 'md';
 
 const buttonBase =
-  'inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-60 whitespace-nowrap';
+  'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-[background-color,box-shadow,color] duration-150 ease-standard disabled:cursor-not-allowed disabled:opacity-60 whitespace-nowrap';
 const buttonVariants: Record<ButtonVariant, string> = {
-  primary: 'bg-brand-500 text-white hover:bg-brand-600 shadow-sm',
-  secondary: 'border border-line bg-white text-ink hover:bg-canvas shadow-sm',
+  primary: 'bg-brand-500 text-white hover:bg-brand-600 hover:shadow-card',
+  secondary: 'border border-gray-300 bg-white text-brand-700 hover:bg-brand-50',
   ghost: 'text-ink-muted hover:bg-canvas hover:text-ink',
   danger: 'border border-red-200 bg-white text-red-700 hover:bg-red-50'
 };
@@ -55,7 +55,7 @@ export function ButtonLink({
 
 export function Card({ className, children, ...props }: ComponentPropsWithoutRef<'section'>) {
   return (
-    <section className={clsx('rounded-lg border border-line bg-white shadow-card', className)} {...props}>
+    <section className={clsx('rounded-xl border border-line bg-white', className)} {...props}>
       {children}
     </section>
   );
@@ -97,7 +97,7 @@ export function PageHeader({
   return (
     <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div className="min-w-0">
-        <h1 className="text-xl font-semibold tracking-tight text-ink">{title}</h1>
+        <h1 className="text-xl font-semibold tracking-heading text-ink [text-wrap:balance]">{title}</h1>
         {description ? <p className="mt-1 text-sm text-ink-muted">{description}</p> : null}
       </div>
       {actions ? <div className="flex flex-wrap gap-2">{actions}</div> : null}
@@ -105,19 +105,18 @@ export function PageHeader({
   );
 }
 
-type Tone = 'neutral' | 'blue' | 'green' | 'amber' | 'red' | 'violet';
+type Tone = 'neutral' | 'blue' | 'green' | 'amber' | 'red';
 const tones: Record<Tone, string> = {
-  neutral: 'bg-gray-100 text-gray-700 ring-gray-200',
-  blue: 'bg-brand-50 text-brand-700 ring-brand-100',
-  green: 'bg-emerald-50 text-emerald-700 ring-emerald-100',
-  amber: 'bg-amber-50 text-amber-800 ring-amber-100',
-  red: 'bg-red-50 text-red-700 ring-red-100',
-  violet: 'bg-violet-50 text-violet-700 ring-violet-100'
+  neutral: 'bg-gray-100 text-gray-800',
+  blue: 'bg-brand-50 text-brand-700',
+  green: 'bg-emerald-50 text-emerald-700',
+  amber: 'bg-amber-50 text-amber-700',
+  red: 'bg-red-50 text-red-700'
 };
 
 export function Badge({ tone = 'neutral', children, className }: { tone?: Tone; children: ReactNode; className?: string }) {
   return (
-    <span className={clsx('inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium ring-1 ring-inset', tones[tone], className)}>
+    <span className={clsx('inline-flex items-center whitespace-nowrap rounded-full px-2.5 py-0.5 text-[11px] font-medium tracking-[0.02em]', tones[tone], className)}>
       {children}
     </span>
   );
@@ -139,7 +138,7 @@ export function Stat({
       <p className="text-xs font-medium text-ink-muted">{label}</p>
       <p
         className={clsx(
-          'tabular mt-1.5 text-2xl font-semibold tracking-tight',
+          'tabular mt-1.5 text-2xl font-semibold tracking-heading',
           tone === 'warn' ? 'text-amber-700' : tone === 'good' ? 'text-emerald-700' : 'text-ink'
         )}
       >
@@ -180,7 +179,7 @@ export function Avatar({ name, size = 'md' }: { name: string; size?: 'sm' | 'md'
   return (
     <span
       aria-hidden="true"
-      className={clsx('inline-flex shrink-0 items-center justify-center rounded-full bg-brand-50 font-semibold text-brand-700 ring-1 ring-brand-100', sizes[size])}
+      className={clsx('inline-flex shrink-0 items-center justify-center rounded-full bg-gray-100 font-semibold text-gray-800', sizes[size])}
     >
       {initials || '?'}
     </span>
@@ -236,7 +235,7 @@ export function Notice({ tone = 'neutral', children }: { tone?: 'neutral' | 'err
     success: 'border-emerald-200 bg-emerald-50 text-emerald-800',
     warn: 'border-amber-200 bg-amber-50 text-amber-900'
   };
-  return <div className={clsx('rounded-md border px-3 py-2 text-sm', styles[tone])}>{children}</div>;
+  return <div className={clsx('rounded-lg border px-3 py-2 text-sm', styles[tone])}>{children}</div>;
 }
 
 export function Table({ children }: { children: ReactNode }) {

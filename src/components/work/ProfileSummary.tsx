@@ -38,7 +38,7 @@ export function ProfileSummary({ profile, team }: { profile: Profile; team: Team
           <p className="mt-3 text-base font-semibold text-ink">{profile.full_name}</p>
           <p className="text-xs text-ink-muted">{profile.job_title ?? (profile.member_type === 'intern' ? 'Intern' : 'Employee')}</p>
           <div className="mt-3 flex flex-wrap justify-center gap-1.5">
-            <Badge tone={profile.member_type === 'intern' ? 'violet' : 'blue'}>{profile.member_type === 'intern' ? 'Intern' : 'Employee'}</Badge>
+            <Badge tone={profile.member_type === 'intern' ? 'neutral' : 'blue'}>{profile.member_type === 'intern' ? 'Intern' : 'Employee'}</Badge>
             {profile.app_role === 'admin' ? <Badge tone="amber">Admin</Badge> : null}
             {profile.status === 'inactive' ? <Badge tone="red">Inactive</Badge> : null}
           </div>

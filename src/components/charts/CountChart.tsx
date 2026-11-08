@@ -3,7 +3,7 @@
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 /** Accessible, colour-blind friendly series palette. */
-export const SERIES_COLORS = ['#1A73E8', '#12B5CB', '#E8710A', '#9334E6', '#1E8E3E', '#D93025', '#F9AB00', '#5F6368'];
+export const SERIES_COLORS = ['#1A73E8', '#12B5CB', '#E8710A', '#1E8E3E', '#F9AB00', '#D93025', '#5F6368', '#8AB4F8'];
 
 /**
  * Daily counts (for example commits). Pass one key for a single series, or
@@ -28,7 +28,7 @@ export function CountChart({
           <XAxis dataKey="label" tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: '#59636E' }} interval="preserveStartEnd" minTickGap={12} />
           <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: '#59636E' }} allowDecimals={false} />
           <Tooltip cursor={{ fill: 'rgba(26,115,232,0.06)' }} contentStyle={{ fontSize: 12, borderRadius: 8, borderColor: '#E1E4E8' }} />
-          {keys.length > 1 ? <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 12 }} /> : null}
+          {keys.length > 1 ? <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 12 }} formatter={(v) => <span style={{ color: '#5F6368' }}>{v}</span>} /> : null}
           {keys.map((k, i) => (
             <Bar
               key={k.key}

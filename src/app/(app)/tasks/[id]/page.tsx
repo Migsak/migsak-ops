@@ -43,7 +43,7 @@ export default async function TaskPage({ params }: { params: Promise<{ id: strin
         <LiveRefresh tables={['tasks', 'task_comments']} />
       </div>
       <div className="mb-6">
-        <h1 className="text-xl font-semibold tracking-tight text-ink">{task.title}</h1>
+        <h1 className="text-xl font-semibold tracking-heading text-ink">{task.title}</h1>
         <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-ink-muted">
           <StatusBadge status={task.status} />
           <PriorityBadge priority={task.priority} />

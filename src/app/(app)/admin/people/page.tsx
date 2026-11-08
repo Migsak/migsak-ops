@@ -94,7 +94,7 @@ export default async function PeoplePage({ searchParams }: { searchParams: Promi
                     <Td>
                       <span className="block text-sm">{p.job_title ?? 'No title'}</span>
                       <span className="mt-0.5 flex gap-1">
-                        <Badge tone={p.member_type === 'intern' ? 'violet' : 'blue'}>{p.member_type === 'intern' ? 'Intern' : 'Employee'}</Badge>
+                        <Badge tone={p.member_type === 'intern' ? 'neutral' : 'blue'}>{p.member_type === 'intern' ? 'Intern' : 'Employee'}</Badge>
                         {p.app_role === 'admin' ? <Badge tone="amber">Admin</Badge> : null}
                       </span>
                     </Td>

@@ -5,7 +5,7 @@ Internal workspace for the Migsak team: people management, attendance, daily upd
 - **Members (employees and interns):** check in and out, post a daily update, work through assigned tasks, see their team and their own performance.
 - **Admins:** add and edit people (role, team, timings, internship period, targets), assign and review tasks, and watch a live dashboard of hours, attendance, updates, tasks and commits.
 
-Built with Next.js 15 (App Router), Supabase (Postgres, Auth, Realtime) and Recharts, deployed on Vercel.
+Built with Next.js 15 (App Router), Supabase (Postgres, Auth, Realtime) and Recharts, deployed on Vercel at ops.migsak.com.
 
 ## Setup
 
@@ -86,9 +86,18 @@ Checks:
 ```bash
 npm run typecheck
 npm run lint
-npm test                # unit tests (time, metrics, GitHub parsing, validation)
-tests/sql/run.sh        # schema + RLS tests against a local Postgres (set PGHOST/PGPORT/PGUSER)
+npm test                # unit tests: time, metrics, GitHub parsing, validation
+npm run test:sql        # schema and access rules against a local Postgres (set PGHOST, PGPORT, PGUSER)
+npm run test:e2e        # browser tests: builds the app and runs it against a mock backend
 ```
+
+The browser tests start `tests/e2e/mock-supabase.mjs`, a small stand-in for Supabase with fictional people and data, so they never touch the real project. They cover sign-in and access control, check-in and check-out, daily updates, tasks, the admin dashboard, people pages, and phone layouts with no sideways scrolling.
+
+Every push to `main` runs all four in GitHub Actions (`.github/workflows/ci.yml`).
+
+## Brand
+
+The app follows the Migsak Brand design system: the MIGSAK wordmark and mark in `public/brand/`, Inter, Google's tonal palettes with contrast-checked status colours, and the voice rules (sentence case, no em dashes, no invented numbers). Tokens live in `tailwind.config.ts`.
 
 ## Project structure
 

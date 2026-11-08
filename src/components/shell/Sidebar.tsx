@@ -54,7 +54,7 @@ function NavList({ items, pathname }: { items: typeof MEMBER_NAV; pathname: stri
               href={href}
               aria-current={active ? 'page' : undefined}
               className={clsx(
-                'flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors',
+                'flex items-center gap-2.5 rounded-full px-3 py-2 text-sm transition-colors duration-150 ease-standard',
                 active ? 'bg-brand-50 font-medium text-brand-700' : 'text-ink-muted hover:bg-canvas hover:text-ink'
               )}
             >
